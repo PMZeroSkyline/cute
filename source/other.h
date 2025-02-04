@@ -9,6 +9,7 @@
 #include "core/math/mat2.h"
 #include "core/math/mat3.h"
 #include "core/math/mat4.h"
+#include "core/string/string.h"
 
 void Foo();
 

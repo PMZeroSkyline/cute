@@ -6,7 +6,7 @@ project(cute VERSION 0.1.0 LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 17)
 
 if (MSVC)
-    add_compile_options(/wd4244 /wd4267 /wd4305 /wd4312)
+    add_compile_options(/wd4244) # 4244:auto_cast
 endif()
 
 # _______________include_______________
@@ -53,15 +53,15 @@ file(GLOB_RECURSE IMGUI_SRC
 )
 add_executable(
     cute 
+    extern/glad/src/glad.c
     ${CUTE_SRC}
     # ${BULLET_SRC}
     # # ${IMGUI_SRC}
     # extern/lua/onelua.c
-    # extern/glad/src/glad.c
     
 )
 
 # _______________options_______________
 if (MSVC)
-    target_link_options(cute PRIVATE "/NODEFAULTLIB:MSVCRT") # for GLFW
+    target_link_options(cute PRIVATE "/NODEFAULTLIB:MSVCRT") # fix GLFW
 endif()
