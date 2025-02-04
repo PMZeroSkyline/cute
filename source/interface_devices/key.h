@@ -7,9 +7,9 @@ struct Key
     bool down = false;
     bool pressing = false;
 
-    void recv(bool press);
-    void update(bool press);
+    void set(bool press);
     void reset();
+    void update(bool press);
 };
 
 #endif
