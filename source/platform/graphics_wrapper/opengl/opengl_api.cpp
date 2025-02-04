@@ -27,35 +27,38 @@ OpenglAPI::OpenglAPI()
     {
         GLint exts = 0;
         glGetIntegerv(GL_NUM_EXTENSIONS, &exts);
-        for (GLint i = 0; i < exts; ++i) {
+        for (GLint i = 0; i < exts; ++i) 
+        {
             const char* ext = reinterpret_cast<const char*>(glGetStringi(GL_EXTENSIONS, i));
             extensions.insert(ext);
         }
+
+        return;
     }
-    else
+
+    if (!glGetString)
     {
-        if (glGetString)
-        {
-            const GLubyte *exts = glGetString(GL_EXTENSIONS);
-            if (exts)
-            {
-                if (const char* es = reinterpret_cast<const char*>(exts)) 
-                {
-                    std::istringstream ess(es);
-                    std::string ext;
-                    while (ess >> ext) 
-                    {
-                        extensions.insert(ext);
-                    }
-                } else 
-                {
-                    std::cout << "failed to get OpenGL extensions" << std::endl;
-                }
-            }
-        }
-        else if (glfwExtensionSupported(GL_ARB_TEXTURE_FILTER_ANISOTROPIC_EXTENSION_NAME))
+        if (glfwExtensionSupported(GL_ARB_TEXTURE_FILTER_ANISOTROPIC_EXTENSION_NAME))
         {
             extensions.insert(GL_ARB_TEXTURE_FILTER_ANISOTROPIC_EXTENSION_NAME);
+        }
+
+        return;
+    }
+
+    const GLubyte *exts = glGetString(GL_EXTENSIONS);
+    if (!exts)
+    {
+        return;
+    }
+    
+    if (const char* str = reinterpret_cast<const char*>(exts))
+    {
+        std::istringstream ess(str);
+        std::string ext;
+        while (ess >> ext) 
+        {
+            extensions.insert(ext);
         }
     }
 }

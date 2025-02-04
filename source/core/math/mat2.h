@@ -13,14 +13,7 @@ struct mat2t
 		{
 			for (int j = 0; j < 2; j++)
 			{
-				if (i == j)
-				{
-					(*this)(i, j) = 1;
-				}
-				else
-				{
-					(*this)(i, j) = 0;
-				}
+				(*this)(i, j) = i == j ? 1 : 0;
 			}
 		}
 	}

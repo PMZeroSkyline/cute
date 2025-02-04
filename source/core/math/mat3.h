@@ -18,14 +18,7 @@ struct mat3t
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				if (i == j)
-				{
-					(*this)(i, j) = 1;
-				}
-				else
-				{
-					(*this)(i, j) = 0;
-				}
+                (*this)(i, j) = i == j ? 1 : 0;
 			}
 		}
 	}
@@ -120,16 +113,12 @@ struct mat3t
 		int y = 0;
 		for (int i = 0; i < 3; i++)
 		{
-			if (i == r)
-			{
-				continue;
-			}
+			if (i == r) continue;
+            
 			for (int j = 0; j < 3; j++)
 			{
-				if (j == c)
-				{
-					continue;
-				}
+				if (j == c) continue;
+
 				m(x, y) = (*this)(i, j);
 				y++;
 			}
