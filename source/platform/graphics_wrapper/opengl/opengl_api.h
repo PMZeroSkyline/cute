@@ -10,7 +10,7 @@
 #include <sstream>
 #include <set>
 #include <map>
-#include "interface_devices/desktop/desktop_app.h"
+#include "device/desktop/desktop_app.h"
 
 struct OpenglAPI : GraphicsAPI
 {

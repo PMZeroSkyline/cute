@@ -1,6 +1,6 @@
 #include <iostream>
 #include "platform/graphics_wrapper/opengl/opengl_api.h"
-#include "interface_devices/desktop/desktop_app.h"
+#include "device/desktop/desktop_app.h"
 int main()
 {
     App::instance = std::make_shared<DesktopApp>();
@@ -10,6 +10,9 @@ int main()
     while(App::instance->is_running())
     {
         App::instance->update();
+        glClearColor(0.85f, 1.f, 1.f, 1.f);
+        glClear(GL_COLOR_BUFFER_BIT);
+        GraphicsAPI::instance->swap_buffers();
     }
     return 0;
 }

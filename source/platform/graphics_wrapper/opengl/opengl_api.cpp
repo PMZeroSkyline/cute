@@ -64,6 +64,5 @@ OpenglAPI::OpenglAPI()
 }
 void OpenglAPI::swap_buffers()
 {
-    DesktopWindow* w = (DesktopWindow*)App::instance->window.get();
-    glfwSwapBuffers(w->glfw_window);
+    glfwSwapBuffers(((DesktopWindow*)App::instance->window.get())->glfw_window);
 }
