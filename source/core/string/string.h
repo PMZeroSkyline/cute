@@ -20,5 +20,7 @@ std::string merge(const T& tokens, char delim)
 }
 std::vector<std::string> split(const std::string &s, char delim);
 bool replace(std::string& str, const std::string& search, const std::string& replacement);
+void encrypt_decrypt(std::string &input, const std::string &key);
+size_t mul31(const std::string& input);
 
 #endif
