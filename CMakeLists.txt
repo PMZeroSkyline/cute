@@ -50,7 +50,7 @@ add_executable(
     extern/glad/src/glad.c
     ${CUTE_SRC}
     ${BULLET_SRC}
-    # # ${IMGUI_SRC}
+    ${IMGUI_SRC}
     # extern/lua/onelua.c
 )
 # _______________options_______________

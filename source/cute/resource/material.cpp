@@ -15,7 +15,10 @@ Material::Material(const json& j, const std::vector<std::shared_ptr<Texture>>& _
     if (j.contains("pbrMetallicRoughness"))
     {
         json pbr = j["pbrMetallicRoughness"];
-        vec4s[HashedString("iBaseColorFactor")] = pbr.contains("baseColorFactor") ? vec4(pbr["baseColorFactor"]) : vec4(1.0);
+        if (pbr.contains("baseColorFactor"))
+            vec4s[HashedString("iBaseColorFactor")] = pbr["baseColorFactor"];
+        else
+            vec4s[HashedString("iBaseColorFactor")] = vec4(1.0);
         if (pbr.contains("baseColorTexture"))
         {
             json tex = pbr["baseColorTexture"];
