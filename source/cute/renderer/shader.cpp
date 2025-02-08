@@ -1,5 +1,5 @@
 #include "shader.h"
-#include "platform/graphics_wrapper/gl/gl_api.h"
+#include "platform/graphics_wrapper/gl_api.h"
 #include "core/string/string.h"
 #include "platform/platform_detection.h"
 #include "platform/file_system.h"

@@ -1,7 +1,7 @@
 #ifndef VERTEX_ARRAY_H
 #define VERTEX_ARRAY_H
 
-#include "platform/graphics_wrapper/gl/gl_validation.h"
+#include "platform/graphics_wrapper/gl_validation.h"
 
 struct VertexArray
 {

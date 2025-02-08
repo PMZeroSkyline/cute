@@ -1,7 +1,7 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#include "platform/graphics_wrapper/gl/gl_validation.h"
+#include "platform/graphics_wrapper/gl_validation.h"
 #include <set>
 #include <string>
 #include <vector>

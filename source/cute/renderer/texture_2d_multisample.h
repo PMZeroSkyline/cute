@@ -1,7 +1,7 @@
 #ifndef TEXTURE_2D_MULTISAMPLE_H
 #define TEXTURE_2D_MULTISAMPLE_H
 #include "texture.h"
-#include "platform/graphics_wrapper/gl/gl_validation.h"
+#include "platform/graphics_wrapper/gl_validation.h"
 struct Texture2DMultisample : Texture
 {   
     GLsizei samples;

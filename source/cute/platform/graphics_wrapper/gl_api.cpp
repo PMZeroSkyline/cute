@@ -5,7 +5,7 @@
 #include <sstream>
 #include <map>
 #include "device/app.h"
-#include "device/desktop/desktop_window.h"
+#include "device/desktop_window.h"
 
 OpenglAPI::OpenglAPI()
 {

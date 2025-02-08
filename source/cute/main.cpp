@@ -1,8 +1,8 @@
 #include "platform/platform_detection.h"
 #include "platform/file_system.h"
-#include "platform/graphics_wrapper/gl/gl_api.h"
-#include "device/desktop/desktop_app.h"
-#include "device/desktop/desktop_window.h"
+#include "platform/graphics_wrapper/gl_api.h"
+#include "device/desktop_app.h"
+#include "device/desktop_window.h"
 #include "scene_graph/world.h"
 #include "renderer/debug_gui.h"
 int main(int argc, char** argv)

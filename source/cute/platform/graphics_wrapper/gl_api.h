@@ -1,7 +1,7 @@
 #ifndef OPENGL_API_H
 #define OPENGL_API_H
 
-#include "../graphics_api.h"
+#include "graphics_api.h"
 #include <set>
 #include <string>
 

@@ -1,7 +1,7 @@
 #ifndef BUFFER_H
 #define BUFFER_H
 
-#include "platform/graphics_wrapper/gl/gl_validation.h"
+#include "platform/graphics_wrapper/gl_validation.h"
 #include <unordered_map>
 #include <memory>
 #include <string>

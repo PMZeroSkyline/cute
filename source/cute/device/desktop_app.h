@@ -1,7 +1,7 @@
 #ifndef DESKTOP_H
 #define DESKTOP_H
 
-#include "../app.h"
+#include "app.h"
 
 
 struct DesktopApp : App

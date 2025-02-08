@@ -2,7 +2,7 @@
 #define GLTF_ACCESS_H
 
 #include "core/parser/json.h"
-#include "platform/graphics_wrapper/gl/gl_validation.h"
+#include "platform/graphics_wrapper/gl_validation.h"
 #include "core/math/vec2.h"
 #include "core/math/vec4.h"
 #include "core/math/quat.h"

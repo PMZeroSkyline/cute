@@ -1,6 +1,6 @@
 #include "texture_sampler.h"
-#include "platform/graphics_wrapper/gl/gl_extension_defines.h"
-#include "platform/graphics_wrapper/gl/gl_api.h"
+#include "platform/graphics_wrapper/gl_extension_defines.h"
+#include "platform/graphics_wrapper/gl_api.h"
 
 TextureSampler::TextureSampler(GLint _magFilter,GLint _minFilter,GLint _wrapS,GLint _wrapT,GLint _wrapR,GLfloat _max_anisotropy,vec4 _border_color,const std::string& _name) : mag_filter(_magFilter),min_filter(_minFilter),wrap_s(_wrapS),wrap_t(_wrapT),wrap_r(_wrapR),max_anisotropy(_max_anisotropy),border_color(_border_color),name(_name) {}
 TextureSampler::~TextureSampler() {}

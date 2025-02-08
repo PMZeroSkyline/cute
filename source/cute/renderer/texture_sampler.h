@@ -2,7 +2,7 @@
 #define TEXTURE_SAMPLER_H
 
 #include <string>
-#include "platform/graphics_wrapper/gl/gl_validation.h"
+#include "platform/graphics_wrapper/gl_validation.h"
 #include "core/math/vec4.h"
 #include "core/parser/json.h"
 struct TextureSampler

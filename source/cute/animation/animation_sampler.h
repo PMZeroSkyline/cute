@@ -4,7 +4,7 @@
 #include <iostream>
 #include "core/parser/json.h"
 #include "resource/gltf_access.h"
-#include "platform/graphics_wrapper/gl/gl_validation.h"
+#include "platform/graphics_wrapper/gl_validation.h"
 #include "core/math/quat.h"
 
 struct AnimationSampler

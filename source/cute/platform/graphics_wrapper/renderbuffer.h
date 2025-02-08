@@ -1,7 +1,7 @@
 #ifndef RENDERBUFFER_H
 #define RENDERBUFFER_H
 
-#include "platform/graphics_wrapper/gl/gl_validation.h"
+#include "platform/graphics_wrapper/gl_validation.h"
 
 struct Renderbuffer
 {

@@ -1,10 +1,10 @@
 #ifndef DESKTOP_WINDOW_H
 #define DESKTOP_WINDOW_H
 
-#include "../window.h"
-#include "../cursor.h"
-#include "../key.h"
-#include "platform/graphics_wrapper/gl/gl_validation.h"
+#include "window.h"
+#include "cursor.h"
+#include "key.h"
+#include "platform/graphics_wrapper/gl_validation.h"
 #include <GLFW/glfw3.h>
 #include <array>
 
