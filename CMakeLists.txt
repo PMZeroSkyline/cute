@@ -10,7 +10,7 @@ include_directories(
     source/cute
     extern/glfw/include
     extern/glad/include
-    extern/lua
+    # extern/lua
     extern/miniaudio
     extern/json
     extern/stb
