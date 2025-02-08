@@ -17,7 +17,7 @@ struct ImageBasedLight : Light
     ImageBasedLight(const std::shared_ptr<TextureCube>& _specular_texture, const std::array<vec3, 9>& _irradiance_coefficients, const std::string& _name = "", const quat& _rotation = quat(), const float& _intensity = 1.f);
     ImageBasedLight(const json& j, const std::vector<std::shared_ptr<Image>>& images);
     void to_json(json& j, const ImageBasedLight& l);
-    void get_irradiance_coefficients(vec4 coeff[9]);
+    void read_irradiance_coefficients(vec4 coeff[9]) const;
 };
 
 #endif

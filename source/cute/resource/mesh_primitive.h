@@ -18,10 +18,10 @@ struct MeshPrimitive
     std::shared_ptr<Buffer> element_array_buffer;
     MeshPrimitive() = default;
     MeshPrimitive(const json& j, const json& gltf, const std::string& dir, const std::vector<std::shared_ptr<Material>>& materials);
-    void update(std::vector<float>* weights);
-    void array_buffer_data(GLenum usage, std::vector<float>* weights) const; 
-    void vertex_attrib() const; 
-    void element_buffer_data(GLenum usage) const;
+    void submit(std::vector<float>* weights);
+    void submit_array_buffer(GLenum usage, std::vector<float>* weights) const; 
+    void submit_vertex_attrib() const; 
+    void submit_element_buffer(GLenum usage) const;
     static std::shared_ptr<MeshPrimitive> make_plane();
     static std::shared_ptr<MeshPrimitive> make_cube();
     static std::shared_ptr<MeshPrimitive> make_sphere(int phi_slice, int theta_slice);

@@ -15,6 +15,9 @@ struct MeshPrimitiveTarget
     std::shared_ptr<AABB> bbox;
     MeshPrimitiveTarget() = default;
     MeshPrimitiveTarget(const json &j, const json& gltf, const std::string &dir);
+    void read_position(char *buf, int stride, int pointer, float weight) const;
+    void read_normal(char *buf, int stride, int pointer, float weight) const;
+    void read_tangent(char *buf, int stride, int pointer, float weight) const;
 };
 
 #endif

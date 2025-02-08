@@ -12,8 +12,8 @@ struct TextureCube : Texture
     TextureCube(std::vector<std::array<std::shared_ptr<Image>, 6>> _mipmaps, const std::string& _name, std::shared_ptr<TextureSampler> _sampler, bool mipmap, GLint _internalformat = 0, GLenum _format = 0, GLint _border = 0);
     TextureCube(std::array<std::shared_ptr<Image>, 6> faces, const std::string& _name, std::shared_ptr<TextureSampler> _sampler, bool mipmap, GLint _internalformat = 0, GLenum _format = 0, GLint _border = 0);
     TextureCube(unsigned int type, int size, int component, int levels, const std::string& _name, std::shared_ptr<TextureSampler> _sampler, bool mipmap, GLint _internalformat = 0, GLenum _format = 0, GLint _border = 0);
-    void tex_image(bool wirtePixels, GLint level);
-    void tex_image(bool wirtePixels);
+    void submit(bool wirtePixels, GLint level);
+    void submit(bool wirtePixels);
     GLenum get_target() override;
     static std::array<quat, 6> orientations();
     static inline std::unordered_map<std::string, std::weak_ptr<TextureCube>> weak;

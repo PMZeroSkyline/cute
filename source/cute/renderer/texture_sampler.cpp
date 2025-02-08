@@ -4,7 +4,7 @@
 
 TextureSampler::TextureSampler(GLint _magFilter,GLint _minFilter,GLint _wrapS,GLint _wrapT,GLint _wrapR,GLfloat _max_anisotropy,vec4 _border_color,const std::string& _name) : mag_filter(_magFilter),min_filter(_minFilter),wrap_s(_wrapS),wrap_t(_wrapT),wrap_r(_wrapR),max_anisotropy(_max_anisotropy),border_color(_border_color),name(_name) {}
 TextureSampler::~TextureSampler() {}
-void TextureSampler::tex_parameter(GLenum target)
+void TextureSampler::submit_parameter(GLenum target)
 {
     if (mag_filter)
     {

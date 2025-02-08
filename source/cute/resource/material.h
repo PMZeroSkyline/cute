@@ -40,9 +40,9 @@ struct Material
     Material() = default;
     Material(const std::shared_ptr<Program>& _program);
     Material(const json& j, const std::vector<std::shared_ptr<Texture>>& _textures);
-    void context_state();
-    void uniform(Program* program);
-    void update(Program* program);
+    void submit_state();
+    void submit_uniform(Program* program);
+    void submit(Program* program);
     static std::shared_ptr<Material> make_default();
 
 };

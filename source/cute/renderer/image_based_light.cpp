@@ -23,7 +23,7 @@ ImageBasedLight::ImageBasedLight(const json& j, const std::vector<std::shared_pt
     specular_texture = TextureCube::get(merge(uris, ','), false, TextureSampler::make_linear_mipmap_clamp_to_edge(), true);
     specular_image_size = j["specularImageSize"];
 }
-void ImageBasedLight::get_irradiance_coefficients(vec4 coeff[9])
+void ImageBasedLight::read_irradiance_coefficients(vec4 coeff[9]) const
 {
     for (int i = 0; i < 9; i++)
     {

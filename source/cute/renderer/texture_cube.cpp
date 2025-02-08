@@ -7,21 +7,21 @@ TextureCube::TextureCube(std::vector<std::array<std::shared_ptr<Image>, 6>> _mip
     bind();
     parse_internalformat(mipmaps[0][0]->component, mipmaps[0][0]->type);
     parse_format(mipmaps[0][0]->component);
-    sampler->tex_parameter(get_target());
+    sampler->submit_parameter(get_target());
     if (mipmap && mipmaps.size() > 1)
     {
-        tex_image(false);
+        submit(false);
         glGenerateMipmap(get_target());
-        tex_image(true);
+        submit(true);
     }
     else if (mipmap)
     {
-        tex_image(true);
+        submit(true);
         glGenerateMipmap(get_target());
     }
     else
     {
-        tex_image(true);
+        submit(true);
     }
 }
 TextureCube::TextureCube(std::array<std::shared_ptr<Image>, 6> faces, const std::string& _name, std::shared_ptr<TextureSampler> _sampler, bool mipmap, GLint _internalformat, GLenum _format, GLint _border) : TextureCube(std::vector<std::array<std::shared_ptr<Image>, 6>>(1, faces), _name, _sampler, mipmap, _internalformat, _format, _border) {}
@@ -40,10 +40,10 @@ TextureCube::TextureCube(unsigned int type, int size, int component, int levels,
         mipmaps.push_back(faces);
     }
     bind();
-    sampler->tex_parameter(get_target());
+    sampler->submit_parameter(get_target());
     parse_internalformat(component, type);
     parse_format(component);
-    tex_image(false);
+    submit(false);
     #if !defined(PLATFORM_ANDROID) && !defined(PLATFORM_IOS)
     if (mipmap)
     {
@@ -51,18 +51,18 @@ TextureCube::TextureCube(unsigned int type, int size, int component, int levels,
     }
     #endif
 }
-void TextureCube::tex_image(bool wirtePixels, GLint level)
+void TextureCube::submit(bool wirtePixels, GLint level)
 {
     for (int i = 0; i < 6; i++)
     {
         glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, level, internalformat, mipmaps[level][i]->x, mipmaps[level][i]->y, border, format, mipmaps[level][i]->type, wirtePixels ? mipmaps[level][i]->data : nullptr);
     }
 }
-void TextureCube::tex_image(bool wirtePixels)
+void TextureCube::submit(bool wirtePixels)
 {
     for (int i = 0; i < mipmaps.size(); i++)
     {
-        tex_image(wirtePixels, i);
+        submit(wirtePixels, i);
     }
 }
 GLenum TextureCube::get_target()

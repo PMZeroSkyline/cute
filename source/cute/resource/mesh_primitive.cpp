@@ -21,69 +21,69 @@ MeshPrimitive::MeshPrimitive(const json& j, const json& gltf, const std::string&
         for (const json &tag : j["targets"])
             targets->emplace_back(tag, gltf, dir);
     }
-    update(nullptr);
+    submit(nullptr);
 }
-void MeshPrimitive::update(std::vector<float>* weights)
+void MeshPrimitive::submit(std::vector<float>* weights)
 {
     vertex_array = std::make_shared<VertexArray>();
     array_buffer = std::make_shared<Buffer>(GL_ARRAY_BUFFER);
     element_array_buffer = std::make_shared<Buffer>(GL_ELEMENT_ARRAY_BUFFER);
     array_buffer->bind();
-    array_buffer_data(GL_STATIC_DRAW, weights);
+    submit_array_buffer(GL_STATIC_DRAW, weights);
     vertex_array->bind();
-    vertex_attrib();
+    submit_vertex_attrib();
     element_array_buffer->bind();
-    element_buffer_data(GL_STATIC_DRAW);
+    submit_element_buffer(GL_STATIC_DRAW);
 }
-void MeshPrimitive::array_buffer_data(GLenum usage, std::vector<float>* weights) const
+void MeshPrimitive::submit_array_buffer(GLenum usage, std::vector<float>* weights) const
 {
-    int oPOSITION, oNORMAL, oTANGENT, oTEXCOORD_0, oTEXCOORD_1, oTEXCOORD_2, oTEXCOORD_3, oCOLOR_0, oJOINTS_0, oWEIGHTS_0;
+    int position_pointer = 0, normal_pointer = 0, tangent_pointer = 0, texcoord0_pointer = 0, texcoord1_pointer = 0, texcoord2_pointer = 0, texcoord3_pointer = 0, color_pointer = 0, joints_pointer = 0, weights_pointer = 0;
     int stride = 0;
-    oPOSITION = stride;
+    position_pointer = stride;
     stride += sizeof(vec3);
     if (attributes->NORMAL.size())
     {
-        oNORMAL = stride;
+        normal_pointer = stride;
         stride += sizeof(vec3);
     }
     if (attributes->TANGENT.size())
     {
-        oTANGENT = stride;
+        tangent_pointer = stride;
         stride += sizeof(vec4);
     }
     if (attributes->TEXCOORD_0.size())
     {
-        oTEXCOORD_0 = stride;
+        texcoord0_pointer = stride;
         stride += sizeof(vec2);
     }
     if (attributes->TEXCOORD_1.size())
     {
-        oTEXCOORD_1 = stride;
+        texcoord1_pointer = stride;
         stride += sizeof(vec2);
     }
     if (attributes->TEXCOORD_2.size())
     {
-        oTEXCOORD_2 = stride;
+        texcoord2_pointer = stride;
         stride += sizeof(vec2);
     }
     if (attributes->TEXCOORD_3.size())
     {
-        oTEXCOORD_3 = stride;
+        texcoord3_pointer = stride;
         stride += sizeof(vec2);
     }
     if (attributes->COLOR_0.size())
     {
-        oCOLOR_0 = stride;
+        color_pointer = stride;
         stride += sizeof(vec3);
     }
     if (attributes->JOINTS_0.size())
     {
-        oJOINTS_0 = stride;
+        joints_pointer = stride;
         stride += sizeof(vec4);
     }
     if (attributes->WEIGHTS_0.size())
     {
-        oWEIGHTS_0 = stride;
+        weights_pointer = stride;
         stride += sizeof(vec4);
     }
     char *buf = (char *)malloc(stride * attributes->POSITION.size());
@@ -91,43 +91,43 @@ void MeshPrimitive::array_buffer_data(GLenum usage, std::vector<float>* weights)
     {
         if (attributes->POSITION.size())
         {
-            memcpy(buf + stride * i + oPOSITION, &attributes->POSITION[i], sizeof(vec3));
+            memcpy(buf + stride * i + position_pointer, &attributes->POSITION[i], sizeof(vec3));
         }
         if (attributes->NORMAL.size())
         {
-            memcpy(buf + stride * i + oNORMAL, &attributes->NORMAL[i], sizeof(vec3));
+            memcpy(buf + stride * i + normal_pointer, &attributes->NORMAL[i], sizeof(vec3));
         }
         if (attributes->TANGENT.size())
         {
-            memcpy(buf + stride * i + oTANGENT, &attributes->TANGENT[i], sizeof(vec4));
+            memcpy(buf + stride * i + tangent_pointer, &attributes->TANGENT[i], sizeof(vec4));
         }
         if (attributes->TEXCOORD_0.size())
         {
-            memcpy(buf + stride * i + oTEXCOORD_0, &attributes->TEXCOORD_0[i], sizeof(vec2));
+            memcpy(buf + stride * i + texcoord0_pointer, &attributes->TEXCOORD_0[i], sizeof(vec2));
         }
         if (attributes->TEXCOORD_1.size())
         {
-            memcpy(buf + stride * i + oTEXCOORD_1, &attributes->TEXCOORD_1[i], sizeof(vec2));
+            memcpy(buf + stride * i + texcoord1_pointer, &attributes->TEXCOORD_1[i], sizeof(vec2));
         }
         if (attributes->TEXCOORD_2.size())
         {
-            memcpy(buf + stride * i + oTEXCOORD_2, &attributes->TEXCOORD_2[i], sizeof(vec2));
+            memcpy(buf + stride * i + texcoord2_pointer, &attributes->TEXCOORD_2[i], sizeof(vec2));
         }
         if (attributes->TEXCOORD_3.size())
         {
-            memcpy(buf + stride * i + oTEXCOORD_3, &attributes->TEXCOORD_3[i], sizeof(vec2));
+            memcpy(buf + stride * i + texcoord3_pointer, &attributes->TEXCOORD_3[i], sizeof(vec2));
         }
         if (attributes->COLOR_0.size())
         {
-            memcpy(buf + stride * i + oCOLOR_0, &attributes->COLOR_0[i], sizeof(vec3));
+            memcpy(buf + stride * i + color_pointer, &attributes->COLOR_0[i], sizeof(vec3));
         }
         if (attributes->JOINTS_0.size())
         {
-            memcpy(buf + stride * i + oJOINTS_0, &attributes->JOINTS_0[i], sizeof(vec4));
+            memcpy(buf + stride * i + joints_pointer, &attributes->JOINTS_0[i], sizeof(vec4));
         }
         if (attributes->WEIGHTS_0.size())
         {
-            memcpy(buf + stride * i + oWEIGHTS_0, &attributes->WEIGHTS_0[i], sizeof(vec4));
+            memcpy(buf + stride * i + weights_pointer, &attributes->WEIGHTS_0[i], sizeof(vec4));
         }
     }
     if (weights && targets && weights->size() == targets->size())
@@ -135,127 +135,73 @@ void MeshPrimitive::array_buffer_data(GLenum usage, std::vector<float>* weights)
         for (int i = 0; i < weights->size(); i++)
         {
             float weight = (*weights)[i];
-            if (weight == 0.f)
-            {
-                continue;
-            }
+            if (weight == 0.f) continue;
             const MeshPrimitiveTarget& target = (*targets)[i];
-            if (target.POSITION.size())
-            {
-                if (target.position_indices.size())
-                {
-                    for (int j = 0; j < target.position_indices.size(); j++)
-                    {
-                        unsigned int id = target.position_indices[j];
-                        *(vec3*)(buf + stride * id + oPOSITION) += target.POSITION[j] * weight;
-                    }
-                }
-                else
-                {
-                    for (int j = 0; j < target.POSITION.size(); j++)
-                    {
-                        *(vec3*)(buf + stride * j + oPOSITION) += target.POSITION[j] * weight;
-                    }
-                }
-            }
-            if (target.NORMAL.size())
-            {
-                if (target.normal_indices.size())
-                {
-                    for (int j = 0; j < target.normal_indices.size(); j++)
-                    {
-                        unsigned int id = target.normal_indices[j];
-                        *(vec3*)(buf + stride * id + oNORMAL) += target.NORMAL[j] * weight;
-                    }
-                }
-                else
-                {
-                    for (int j = 0; j < target.NORMAL.size(); j++)
-                    {
-                        *(vec3*)(buf + stride * j + oNORMAL) += target.NORMAL[j] * weight;
-                    }
-                }
-            }
-            if (target.TANGENT.size())
-            {
-                if (target.tangent_indices.size())
-                {
-                    for (int j = 0; j < target.tangent_indices.size(); j++)
-                    {
-                        unsigned int id = target.tangent_indices[j];
-                        *(vec4*)(buf + stride * id + oTANGENT) += target.TANGENT[j] * weight;
-                    }
-                }
-                else
-                {
-                    for (int j = 0; j < target.TANGENT.size(); j++)
-                    {
-                        *(vec4*)(buf + stride * j + oTANGENT) += target.TANGENT[j] * weight;
-                    }
-                }
-            }
+            target.read_position(buf, stride, position_pointer, weight);
+            target.read_normal(buf, stride, normal_pointer, weight);
+            target.read_tangent(buf, stride, tangent_pointer, weight);
         }
     }
     glBufferData(GL_ARRAY_BUFFER, stride * attributes->POSITION.size(), buf, usage);
     free(buf);
 }    
-void MeshPrimitive::vertex_attrib() const
+void MeshPrimitive::submit_vertex_attrib() const
 {
-    int oPOSITION, oNORMAL, oTANGENT, oTEXCOORD_0, oTEXCOORD_1, oTEXCOORD_2, oTEXCOORD_3, oCOLOR_0, oJOINTS_0, oWEIGHTS_0;
+    int position_pointer = 0, normal_pointer = 0, tangent_pointer = 0, texcoord0_pointer = 0, texcoord1_pointer = 0, texcoord2_pointer = 0, texcoord3_pointer = 0, color_pointer = 0, joints_pointer = 0, weights_pointer = 0;
     int stride = 0;
-    oPOSITION = stride;
+    position_pointer = stride;
     stride += sizeof(vec3);
     if (attributes->NORMAL.size())
     {
-        oNORMAL = stride;
+        normal_pointer = stride;
         stride += sizeof(vec3);
     }
     if (attributes->TANGENT.size())
     {
-        oTANGENT = stride;
+        tangent_pointer = stride;
         stride += sizeof(vec4);
     }
     if (attributes->TEXCOORD_0.size())
     {
-        oTEXCOORD_0 = stride;
+        texcoord0_pointer = stride;
         stride += sizeof(vec2);
     }
     if (attributes->TEXCOORD_1.size())
     {
-        oTEXCOORD_1 = stride;
+        texcoord1_pointer = stride;
         stride += sizeof(vec2);
     }
     if (attributes->TEXCOORD_2.size())
     {
-        oTEXCOORD_2 = stride;
+        texcoord2_pointer = stride;
         stride += sizeof(vec2);
     }
     if (attributes->TEXCOORD_3.size())
     {
-        oTEXCOORD_3 = stride;
+        texcoord3_pointer = stride;
         stride += sizeof(vec2);
     }
     if (attributes->COLOR_0.size())
     {
-        oCOLOR_0 = stride;
+        color_pointer = stride;
         stride += sizeof(vec3);
     }
     if (attributes->JOINTS_0.size())
     {
-        oJOINTS_0 = stride;
+        joints_pointer = stride;
         stride += sizeof(vec4);
     }
     if (attributes->WEIGHTS_0.size())
     {
-        oWEIGHTS_0 = stride;
+        weights_pointer = stride;
         stride += sizeof(vec4);
     }
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(oPOSITION));
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(position_pointer));
     if (attributes->NORMAL.size())
     {
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(oNORMAL));
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(normal_pointer));
     }
     else
     {
@@ -264,7 +210,7 @@ void MeshPrimitive::vertex_attrib() const
     if (attributes->TANGENT.size())
     {
         glEnableVertexAttribArray(2);
-        glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(oTANGENT));
+        glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(tangent_pointer));
     }
     else
     {
@@ -273,7 +219,7 @@ void MeshPrimitive::vertex_attrib() const
     if (attributes->TEXCOORD_0.size())
     {
         glEnableVertexAttribArray(3);
-        glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(oTEXCOORD_0));
+        glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(texcoord0_pointer));
     }
     else
     {
@@ -282,7 +228,7 @@ void MeshPrimitive::vertex_attrib() const
     if (attributes->TEXCOORD_1.size())
     {
         glEnableVertexAttribArray(4);
-        glVertexAttribPointer(4, 2, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(oTEXCOORD_1));
+        glVertexAttribPointer(4, 2, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(texcoord1_pointer));
     }
     else
     {
@@ -291,7 +237,7 @@ void MeshPrimitive::vertex_attrib() const
     if (attributes->TEXCOORD_2.size())
     {
         glEnableVertexAttribArray(5);
-        glVertexAttribPointer(5, 2, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(oTEXCOORD_2));
+        glVertexAttribPointer(5, 2, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(texcoord2_pointer));
     }
     else
     {
@@ -300,7 +246,7 @@ void MeshPrimitive::vertex_attrib() const
     if (attributes->TEXCOORD_3.size())
     {
         glEnableVertexAttribArray(6);
-        glVertexAttribPointer(6, 2, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(oTEXCOORD_3));
+        glVertexAttribPointer(6, 2, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(texcoord3_pointer));
     }
     else
     {
@@ -309,7 +255,7 @@ void MeshPrimitive::vertex_attrib() const
     if (attributes->COLOR_0.size())
     {
         glEnableVertexAttribArray(7);
-        glVertexAttribPointer(7, 3, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(oCOLOR_0));
+        glVertexAttribPointer(7, 3, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(color_pointer));
     }
     else
     {
@@ -318,7 +264,7 @@ void MeshPrimitive::vertex_attrib() const
     if (attributes->JOINTS_0.size())
     {
         glEnableVertexAttribArray(8);
-        glVertexAttribPointer(8, 4, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(oJOINTS_0));
+        glVertexAttribPointer(8, 4, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(joints_pointer));
     }
     else
     {
@@ -327,14 +273,14 @@ void MeshPrimitive::vertex_attrib() const
     if (attributes->WEIGHTS_0.size())
     {
         glEnableVertexAttribArray(9);
-        glVertexAttribPointer(9, 4, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(oWEIGHTS_0));
+        glVertexAttribPointer(9, 4, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void *>(weights_pointer));
     }
     else
     {
         glDisableVertexAttribArray(9);
     }
 }    
-void MeshPrimitive::element_buffer_data(GLenum usage) const
+void MeshPrimitive::submit_element_buffer(GLenum usage) const
 {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices->size() * sizeof(unsigned int), &(*indices)[0], usage);
 }
@@ -358,7 +304,7 @@ std::shared_ptr<MeshPrimitive> MeshPrimitive::make_plane()
         primitive->attributes->NORMAL.push_back(vec3(0, 0, 1));
     }
     (*primitive->indices) = {1, 2, 3, 1, 0, 2};
-    primitive->update(nullptr);
+    primitive->submit(nullptr);
     return primitive;
 }
 std::shared_ptr<MeshPrimitive> MeshPrimitive::make_cube()
@@ -401,7 +347,7 @@ std::shared_ptr<MeshPrimitive> MeshPrimitive::make_cube()
             primitive->indices->push_back(i * corners.size() + indices);
         }
     }
-    primitive->update(nullptr);
+    primitive->submit(nullptr);
     return primitive;
 }
 std::shared_ptr<MeshPrimitive> make_sphere(int phi_slice, int theta_slice)
@@ -447,7 +393,7 @@ std::shared_ptr<MeshPrimitive> make_sphere(int phi_slice, int theta_slice)
             primitive->indices->push_back(vertCount + 1);
         }
     }
-    primitive->update(nullptr);
+    primitive->submit(nullptr);
     return primitive;
 }
 std::shared_ptr<MeshPrimitive> MeshPrimitive::get_plane()

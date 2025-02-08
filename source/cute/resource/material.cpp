@@ -108,7 +108,7 @@ Material::Material(const json& j, const std::vector<std::shared_ptr<Texture>>& _
     }
     programs[HashedString()] = Program::get(vs_path, fs_path+(fs_defs.size()? ",":"")+merge(fs_defs,','));
 }
-void Material::context_state()
+void Material::submit_state()
 {
     // https://stackoverflow.com/questions/7505018/repeated-state-changes-in-opengl
     if (depth_test)
@@ -141,7 +141,7 @@ void Material::context_state()
     }
     glPolygonMode(polygon_mode_face, polygon_mode_mode);
 }
-void Material::uniform(Program* program)
+void Material::submit_uniform(Program* program)
 {
     int samplerSocket = 0;
     for (const auto &pair : textures)
@@ -163,11 +163,11 @@ void Material::uniform(Program* program)
     for (const auto &pair : vec3s) program->uniform3f(pair.first, pair.second);
     for (const auto &pair : vec4s) program->uniform4f(pair.first, pair.second);
 }
-void Material::update(Program* program)
+void Material::submit(Program* program)
 {
-    context_state();
+    submit_state();
     program->use();
-    uniform(program);
+    submit_uniform(program);
 }
 std::shared_ptr<Material> Material::make_default()
 {

@@ -14,10 +14,6 @@ Mesh::Mesh(const json& j, const json& gltf, const std::string& dir, const std::v
     {
         name = j["name"];
     }
-    update();
-}
-void Mesh::update()
-{
     bbox = std::make_shared<AABB>();
     for (int i = 0; i != primitives.size(); i++)
     {

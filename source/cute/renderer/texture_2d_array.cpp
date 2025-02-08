@@ -5,21 +5,21 @@ Texture2DArray::Texture2DArray(std::vector<std::vector<std::shared_ptr<Image>>> 
     bind();
     parse_internalformat(mipmaps[0][0]->component, mipmaps[0][0]->type);
     parse_format(mipmaps[0][0]->component);
-    sampler->tex_parameter(get_target());
+    sampler->submit_parameter(get_target());
     if (mipmap && mipmaps.size() > 1)
     {
-        tex_Image(false);
+        submit(false);
         glGenerateMipmap(get_target());
-        tex_Image(true);
+        submit(true);
     }
     else if (mipmap)
     {
-        tex_Image(true);
+        submit(true);
         glGenerateMipmap(get_target());
     }
     else
     {
-        tex_Image(true);
+        submit(true);
     }
 }
 Texture2DArray::Texture2DArray(std::vector<std::shared_ptr<Image>> images, const std::string& _name, std::shared_ptr<TextureSampler> _sampler, bool mipmap, GLint _internalformat, GLenum _format, GLint _border) : Texture2DArray(std::vector<std::vector<std::shared_ptr<Image>>>(1, images), _name, _sampler, mipmap, _internalformat, _format, _border) {}
@@ -34,16 +34,16 @@ Texture2DArray::Texture2DArray(unsigned int type, int x, int y, int component, i
         }
     }
     bind();
-    sampler->tex_parameter(get_target());
+    sampler->submit_parameter(get_target());
     parse_internalformat(component, type);
     parse_format(component);
-    tex_Image(false);
+    submit(false);
     if (mipmap)
     {
         glGenerateMipmap(get_target());
     }
 }
-void Texture2DArray::tex_Image(bool wirte_pixels, GLint level)
+void Texture2DArray::submit(bool wirte_pixels, GLint level)
 {
     std::shared_ptr<Image> image = mipmaps[level][0];
     int depth = mipmaps[level].size();
@@ -63,11 +63,11 @@ void Texture2DArray::tex_Image(bool wirte_pixels, GLint level)
         std::free(buf);
     }
 }
-void Texture2DArray::tex_Image(bool wirte_pixels)
+void Texture2DArray::submit(bool wirte_pixels)
 {
     for (int i = 0; i < mipmaps.size(); i++)
     {
-        tex_Image(wirte_pixels, i);
+        submit(wirte_pixels, i);
     }
 }
 GLenum Texture2DArray::get_target()

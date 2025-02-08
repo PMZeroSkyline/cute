@@ -6,21 +6,18 @@ Texture2D::Texture2D(const std::vector<std::shared_ptr<Image>>& _mipmaps, const 
     bind();
     parse_internalformat(mipmaps[0]->component, mipmaps[0]->type);
     parse_format(mipmaps[0]->component);
-    sampler->tex_parameter(get_target());
+    sampler->submit_parameter(get_target());
     if (mipmap && mipmaps.size() > 1)
     {
-        tex_image(false);
+        submit(false);
         glGenerateMipmap(get_target());
-        tex_image(true);
+        submit(true);
     }
-    else if (mipmap)
+    else 
     {
-        tex_image(true);
-        glGenerateMipmap(get_target());
-    }
-    else
-    {
-        tex_image(true);
+        submit(true);
+        if (mipmap)
+            glGenerateMipmap(get_target());
     }
 }
 Texture2D::Texture2D(const std::shared_ptr<Image>& image, const std::string& _name, std::shared_ptr<TextureSampler> _sampler, bool mipmap, GLint _internalformat, GLenum _format, GLint _border) : Texture2D(std::vector<std::shared_ptr<Image>>(1, image), _name, _sampler, mipmap, _internalformat, _format, _border) {}
@@ -31,24 +28,24 @@ Texture2D::Texture2D(unsigned int type, int x, int y, int component, int levels,
         mipmaps.push_back(std::make_shared<Image>(type, x*std::pow(0.5, mip), y*std::pow(0.5, mip), component, nullptr));
     }
     bind();
-    sampler->tex_parameter(get_target());
+    sampler->submit_parameter(get_target());
     parse_internalformat(component, type);
     parse_format(component);
-    tex_image(false);
+    submit(false);
     if (mipmap)
     {
         glGenerateMipmap(get_target());
     }
 }
-void Texture2D::tex_image(bool wirte_pixels, GLint level)
+void Texture2D::submit(bool wirte_pixels, GLint level)
 {
     glTexImage2D(GL_TEXTURE_2D, level, internalformat, mipmaps[level]->x, mipmaps[level]->y, border, format, mipmaps[level]->type, wirte_pixels ? mipmaps[level]->data : nullptr);
 }
-void Texture2D::tex_image(bool wirte_pixels)
+void Texture2D::submit(bool wirte_pixels)
 {
     for (int i = 0; i < mipmaps.size(); i++)
     {
-        tex_image(wirte_pixels, i);
+        submit(wirte_pixels, i);
     }
 }
 GLenum Texture2D::get_target()

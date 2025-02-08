@@ -11,6 +11,6 @@ struct Texture2DMultisample : Texture
     Texture2DMultisample() = default;
     Texture2DMultisample(GLsizei _width, GLsizei _height, GLint _internalformat, GLsizei _samples = 4, GLboolean _fixedsamplelocations = GL_TRUE);
     GLenum get_target() override;
-    void tex_image();
+    void submit();
 };
 #endif

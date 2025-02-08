@@ -12,9 +12,9 @@ struct MeshGPUInstancing
     std::shared_ptr<Buffer> array_buffer;
     std::shared_ptr<AABB> bbox;
     MeshGPUInstancing(const json &j, const json& gltf, const std::string &dir, Mesh* mesh);
-    void array_buffer_data(GLenum usage);
-    void vertex_attrib();
-    void update(Mesh* mesh);
+    void submit_array_buffer(GLenum usage);
+    void submit_vertex_attrib();
+    void submit(Mesh* mesh);
 };
 
 #endif

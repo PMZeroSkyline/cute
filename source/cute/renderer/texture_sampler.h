@@ -18,7 +18,7 @@ struct TextureSampler
     TextureSampler() = default;
     TextureSampler(GLint _mag_filter, GLint _min_filter = 0, GLint _wrap_s = 0, GLint _wrap_t = 0, GLint _wrap_r = 0, GLfloat _max_anisotropy = 0, vec4 _border_color = vec4(-1.f), const std::string& _name = "");
     ~TextureSampler();
-    void tex_parameter(GLenum target);
+    void submit_parameter(GLenum target);
     static std::shared_ptr<TextureSampler> make_nearest_clamp(GLfloat _max_anisotropy = 0, const vec4& _border_color = vec4(-1.f));
     static std::shared_ptr<TextureSampler> make_nearest_clamp_to_border(GLfloat _max_anisotropy = 0, const vec4& _border_color = vec4(-1.f));
     static std::shared_ptr<TextureSampler> make_linear_repeat(GLfloat _max_anisotropy = 0, const vec4& _border_color = vec4(-1.f));
