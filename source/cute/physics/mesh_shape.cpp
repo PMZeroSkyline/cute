@@ -27,4 +27,3 @@ size_t MeshShape::hash(Mesh* mesh, const vec3& local_scale)
     size_t h2 = std::hash<vec3>{}(local_scale);
     return h1 ^ (h2 << 1);
 }
-template struct std::hash<MeshShape>;

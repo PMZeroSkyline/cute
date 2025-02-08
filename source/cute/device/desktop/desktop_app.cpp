@@ -1,6 +1,6 @@
 #include "desktop_app.h"
 #include "platform/graphics_wrapper/gl/gl_validation.h"
-#include <glfw/glfw3.h>
+#include <GLFW/glfw3.h>
 #include "platform/platform_detection.h"
 
 DesktopApp::DesktopApp()

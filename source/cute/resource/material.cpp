@@ -15,43 +15,43 @@ Material::Material(const json& j, const std::vector<std::shared_ptr<Texture>>& _
     if (j.contains("pbrMetallicRoughness"))
     {
         json pbr = j["pbrMetallicRoughness"];
-        vec4s["iBaseColorFactor"] = pbr.contains("baseColorFactor") ? pbr["baseColorFactor"] : vec4(1.0);
+        vec4s[HashedString("iBaseColorFactor")] = pbr.contains("baseColorFactor") ? vec4(pbr["baseColorFactor"]) : vec4(1.0);
         if (pbr.contains("baseColorTexture"))
         {
             json tex = pbr["baseColorTexture"];
-            textures["iBaseColorTexture"] = _textures[tex["index"]];
+            textures[HashedString("iBaseColorTexture")] = _textures[tex["index"]];
             fs_defs.insert("BASE_COLOR_TEXTURE_TEXCOORD " + std::to_string(tex.contains("texCoord") ? int(tex["texCoord"]) : 0));
         }
-        floats["iMetallicFactor"] = pbr.contains("metallicFactor") ? pbr["metallicFactor"] : 1.f;
-        floats["iRoughnessFactor"] = pbr.contains("roughnessFactor") ? pbr["roughnessFactor"] : 1.f;
+        floats[HashedString("iMetallicFactor")] = pbr.contains("metallicFactor") ? float(pbr["metallicFactor"]) : 1.f;
+        floats[HashedString("iRoughnessFactor")] = pbr.contains("roughnessFactor") ? float(pbr["roughnessFactor"]) : 1.f;
         if (pbr.contains("metallicRoughnessTexture"))
         {
             json tex = pbr["metallicRoughnessTexture"];
-            textures["iMetallicRoughnessTexture"] = _textures[tex["index"]];
+            textures[HashedString("iMetallicRoughnessTexture")] = _textures[tex["index"]];
             fs_defs.insert("METALLIC_ROUGHNESS_TEXTURE_TEXCOORD " + std::to_string(tex.contains("texCoord") ? int(tex["texCoord"]) : 0));
         }
     }
     if (j.contains("normalTexture"))
     {
         json tex = j["normalTexture"];
-        textures["iNormalTexture"] = _textures[tex["index"]];
-        floats["iNormalTextureScale"] = tex.contains("scale") ? tex["scale"] : 1.f;
+        textures[HashedString("iNormalTexture")] = _textures[tex["index"]];
+        floats[HashedString("iNormalTextureScale")] = tex.contains("scale") ? float(tex["scale"]) : 1.f;
         fs_defs.insert("NORMAL_TEXTURE_TEXCOORD " + std::to_string(tex.contains("texCoord") ? int(tex["texCoord"]) : 0));
     }
     if (j.contains("occlusionTexture"))
     {
         json tex = j["occlusionTexture"];
-        textures["iOcclusionTexture"] = _textures[tex["index"]];
-        floats["iOcclusionTextureStrength"] = tex.contains("strength") ? tex["strength"] : 1.f;
+        textures[HashedString("iOcclusionTexture")] = _textures[tex["index"]];
+        floats[HashedString("iOcclusionTextureStrength")] = tex.contains("strength") ? float(tex["strength"]) : 1.f;
         fs_defs.insert("OCCLUSION_TEXTURE_TEXCOORD " + std::to_string(tex.contains("texCoord") ? int(tex["texCoord"]) : 0));
     }
     if (j.contains("emissiveTexture"))
     {
         json tex = j["emissiveTexture"];
-        textures["iEmissiveTexture"] = _textures[tex["index"]];
+        textures[HashedString("iEmissiveTexture")] = _textures[tex["index"]];
         fs_defs.insert("EMISSIVE_TEXTURE_TEXCOORD " + std::to_string(tex.contains("texCoord") ? int(tex["texCoord"]) : 0));
     }
-    if (j.contains("emissiveFactor")) vec3s["iEmissiveFactor"] = j["emissiveFactor"];
+    if (j.contains("emissiveFactor")) vec3s[HashedString("iEmissiveFactor")] = j["emissiveFactor"];
     if (j.contains("alphaMode"))
     {
         const std::string mode = j["alphaMode"];
@@ -59,7 +59,7 @@ Material::Material(const json& j, const std::vector<std::shared_ptr<Texture>>& _
         else if (mode == "MASK") alpha_mode = MASK_ALPHA_BIT;
         else if (mode == "BLEND") alpha_mode = BLEND_ALPHA_BIT;
     }
-    if (j.contains("alphaCutoff")) floats["iAlphaCutoff"] = j["alphaCutoff"];
+    if (j.contains("alphaCutoff")) floats[HashedString("iAlphaCutoff")] = float(j["alphaCutoff"]);
     if (j.contains("doubleSided")) cull_face = j["doubleSided"] == false;
     if (alpha_mode == OPAQUE_ALPHA_BIT) depth_test = GL_TRUE;
     else if (alpha_mode == MASK_ALPHA_BIT)
@@ -170,9 +170,9 @@ std::shared_ptr<Material> Material::make_default()
 {
     std::shared_ptr<Material> material = std::make_shared<Material>(Program::get("assets/shader/primitive.vert", "assets/shader/pbr.frag"));
     material->depth_test = GL_TRUE;
-    material->vec3s["iEmissiveFactor"] = vec3();
-    material->vec4s["iBaseColorFactor"] = vec4(1.f);
-    material->floats["iMetallicFactor"] = 1.f;
-    material->floats["iRoughnessFactor"] = 1.f;
+    material->vec3s[HashedString("iEmissiveFactor")] = vec3();
+    material->vec4s[HashedString("iBaseColorFactor")] = vec4(1.f);
+    material->floats[HashedString("iMetallicFactor")] = 1.f;
+    material->floats[HashedString("iRoughnessFactor")] = 1.f;
     return material;
 }

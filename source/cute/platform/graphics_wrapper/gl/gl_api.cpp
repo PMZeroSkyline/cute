@@ -1,7 +1,7 @@
 #include "gl_api.h"
 #include "gl_extension_defines.h"
 #include "gl_validation.h"
-#include <glfw/glfw3.h>
+#include <GLFW/glfw3.h>
 #include <sstream>
 #include <map>
 #include "device/app.h"

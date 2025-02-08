@@ -2,6 +2,7 @@
 #define CURSOR_H
 
 #include "core/math/vec2.h"
+#include <float.h>
 
 struct Cursor
 {

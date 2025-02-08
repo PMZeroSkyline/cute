@@ -5,7 +5,7 @@
 #include "../cursor.h"
 #include "../key.h"
 #include "platform/graphics_wrapper/gl/gl_validation.h"
-#include <glfw/glfw3.h>
+#include <GLFW/glfw3.h>
 #include <array>
 
 struct DesktopWindow : Window

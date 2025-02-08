@@ -17,6 +17,7 @@ void gl_check_error_(const char *file, int line)
         std::cout << error << " | " << file << " (" << line << ")" << std::endl;
     }
 }
+#if defined(GL_VALIDATION)
 bool gl_check_framebuffer_complete_(const char *file, int line)
 {
     if (glCheckFramebufferStatus_(GL_FRAMEBUFFER, file, line) != GL_FRAMEBUFFER_COMPLETE)
@@ -26,3 +27,4 @@ bool gl_check_framebuffer_complete_(const char *file, int line)
     }
     return true;
 }
+#endif

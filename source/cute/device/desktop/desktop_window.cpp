@@ -1,5 +1,6 @@
 #include "desktop_window.h"
 #include <iostream>
+#include <float.h>
 
 DesktopWindow::DesktopWindow(ivec2 size, const std::string& _name) : name(_name), window_size(size)
 {

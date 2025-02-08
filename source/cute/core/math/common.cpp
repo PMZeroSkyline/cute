@@ -18,5 +18,5 @@ template double sgn<double>(double val);
 template double lerp<double>(double a, double b, double w);
 template double lerp<double>(double start, double end, double t, double r);
 
-template void sincos<double>(double v, double& s, double& c);
+template void sincos<float>(float v, float& s, float& c);
 template void sincos<double>(double v, double& s, double& c);

@@ -12,4 +12,3 @@ bool HashedString::operator==(const HashedString& other) const
 {
     return id == other.id;
 }
-template struct std::hash<HashedString>;
