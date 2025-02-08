@@ -1,7 +1,7 @@
 #ifndef UNIFORM_POINT_LIGHT_H
 #define UNIFORM_POINT_LIGHT_H
 
-#include "vec3.h"
+#include "core/math/vec3.h"
 
 namespace std140
 {

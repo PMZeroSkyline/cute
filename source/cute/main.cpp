@@ -4,7 +4,7 @@
 #include "device/desktop/desktop_app.h"
 #include "device/desktop/desktop_window.h"
 #include "scene_graph/world.h"
-#include "renderer/debug/gui.h"
+#include "renderer/debug_gui.h"
 int main(int argc, char** argv)
 {
     #ifdef WIN_OS
@@ -17,14 +17,14 @@ int main(int argc, char** argv)
     App::instance = std::make_shared<DesktopApp>();
     App::instance->window = std::make_shared<DesktopWindow>(ivec2(800, 600), "none");
     GraphicsAPI::instance = std::make_shared<OpenglAPI>();
-    gui_init();
+    debug_gui_init();
 
     float test;
 
     while(App::instance->is_running())
     {
         App::instance->update();
-        gui_update();
+        debug_gui_update();
         glClearColor(0.85f, 1.f, 1.f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -32,9 +32,10 @@ int main(int argc, char** argv)
         ImGui::SliderFloat("test", &test, 0.f, 1.f);
         ImGui::End();
 
-        gui_render();
+        debug_gui_render();
         GraphicsAPI::instance->swap_buffers();
     }
+    debug_gui_shutdown();
 
     
     return 0;
