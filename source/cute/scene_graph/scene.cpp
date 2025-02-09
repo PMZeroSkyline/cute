@@ -41,9 +41,11 @@ void Scene::add_node(std::shared_ptr<Node> node)
     nodes.push_back(node);
     node->scene = this;
 }
-bool Scene::remove_node(std::shared_ptr<Node> node)
+bool Scene::remove_node(Node* node)
 {
-    auto it = std::find(nodes.begin(), nodes.end(), node);
+    auto it = std::find(nodes.begin(), nodes.end(), [&node](const std::shared_ptr<Node>& nodes_item){
+        nodes_item.get() == node;
+    });
     if (it != nodes.end()) 
     {
         (*it)->scene = nullptr;
@@ -131,11 +133,11 @@ bool Node::remove()
 {
     if (parent)
     {
-        return parent->remove_child(shared_from_this());
+        return parent->remove_child(this);
     }
     else if (scene)
     {
-        return scene->remove_node(shared_from_this());
+        return scene->remove_node(this);
     }
     return false;
 }

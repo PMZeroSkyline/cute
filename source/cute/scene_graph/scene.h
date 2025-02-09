@@ -12,7 +12,7 @@ struct Scene
     void union_nodes(std::vector<std::shared_ptr<Node>>& _nodes);
     void except_nodes(std::vector<std::shared_ptr<Node>>& _nodes);
     void add_node(std::shared_ptr<Node> node);
-    bool remove_node(std::shared_ptr<Node> node);
+    bool remove_node(Node* node);
     template<typename Func>
     void walk_tree(const Func& func);
     Node* breadth_first_search(const std::string& target);

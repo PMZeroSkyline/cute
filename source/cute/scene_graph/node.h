@@ -9,7 +9,7 @@
 #include "transform.h"
 
 struct Scene;
-struct Node : std::enable_shared_from_this<Node>
+struct Node
 {
     std::string name;
     Transform local_transform;
@@ -151,7 +151,7 @@ struct Node : std::enable_shared_from_this<Node>
             }
         }
     }
-    bool remove_child(const std::shared_ptr<Node>& node);
+    bool remove_child(Node* node);
     quat get_world_rotation() const;
     vec3 get_world_scale() const;
     void set_world_position(const vec3 &pos);

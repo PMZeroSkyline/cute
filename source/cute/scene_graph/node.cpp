@@ -37,9 +37,11 @@ void Node::update()
         c->update();
     }
 }
-bool Node::remove_child(const std::shared_ptr<Node>& node)
+bool Node::remove_child(Node* node)
 {
-    auto it = std::find(children.begin(), children.end(), node);
+    auto it = std::find(children.begin(), children.end(), [&node](const std::shared_ptr<Node>& child){
+        return child.get() == node;
+    });
     if (it != children.end()) 
     {
         children.erase(it);

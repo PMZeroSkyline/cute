@@ -2,7 +2,7 @@
 #define WORLD_H
 
 #include "animation/animation.h"
-#include "scene.h"
+#include "scene_graph/scene.h"
 
 struct World
 {

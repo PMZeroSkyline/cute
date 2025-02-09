@@ -69,7 +69,7 @@ GLenum TextureCube::get_target()
 {
     return GL_TEXTURE_CUBE_MAP;
 }
-static std::array<quat, 6> orientations()
+std::array<quat, 6> TextureCube::orientations()
 {   
     float x = .5f;
     float y = .707107f;

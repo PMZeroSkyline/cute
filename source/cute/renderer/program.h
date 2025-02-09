@@ -14,7 +14,6 @@ public:
     std::shared_ptr<FragmentShader> fragment;
 
     std::unordered_map<HashedString, GLint> locations;
-    std::unordered_map<HashedString, GLint> block_indices;
 
     Program() = default;
     Program(std::shared_ptr<VertexShader> _vertex, std::shared_ptr<FragmentShader> _fragment);
