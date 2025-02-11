@@ -26,11 +26,11 @@ Node::Node(const json& j)
 }
 void Node::update()
 {
-    for (auto c : components)
+    for (auto& c : components)
     {
         c->Update();
     }
-    for (auto c : children)
+    for (auto& c : children)
     {
         c->update();
     }

@@ -1,5 +1,4 @@
 #include "debug_gui.h"
-
 void debug_gui_init()
 {
     IMGUI_CHECKVERSION();
@@ -10,6 +9,16 @@ void debug_gui_init()
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(glfwGetCurrentContext(), true);
     ImGui_ImplOpenGL3_Init("#version 150");
+
+    ImGuiStyle& style = ImGui::GetStyle();
+    style.FrameBorderSize = 1.f;
+    for (int i = 0; i < ImGuiCol_COUNT; i++)
+    {
+        float luminance = style.Colors[i].x * 0.2125f + style.Colors[i].y * 0.7154f + style.Colors[i].z * 0.0721f;
+        luminance = luminance * luminance * (3.f - 2.f * luminance);
+        style.Colors[i] = ImVec4(luminance, luminance, luminance, style.Colors[i].w);
+    }
+    
 }
 void debug_gui_render()
 {

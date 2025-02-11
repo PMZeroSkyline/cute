@@ -5,7 +5,7 @@
 #include <sstream>
 #include <map>
 #include "device/app.h"
-#include "device/desktop_window.h"
+#include "device/window.h"
 
 OpenglAPI::OpenglAPI()
 {
@@ -71,5 +71,5 @@ OpenglAPI::OpenglAPI()
 }
 void OpenglAPI::swap_buffers()
 {
-    glfwSwapBuffers(((DesktopWindow*)App::instance->window.get())->glfw_window);
+    glfwSwapBuffers(App::instance->window->glfw_window);
 }
