@@ -17,6 +17,7 @@ DesktopWindow::DesktopWindow(ivec2 size, const std::string& _name) : name(_name)
         std::cout << "failed create window" << std::endl;
     
     glfwMakeContextCurrent(glfw_window);
+    glfwSwapInterval(0); // Disable vsync
         
     glfwSetWindowUserPointer(glfw_window, this);
     glfwSetKeyCallback(glfw_window, [](GLFWwindow* window, int key, int scancode, int action, int mods){
