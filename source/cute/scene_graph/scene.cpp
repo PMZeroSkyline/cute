@@ -43,8 +43,8 @@ void Scene::add_node(std::shared_ptr<Node> node)
 }
 bool Scene::remove_node(Node* node)
 {
-    auto it = std::find(nodes.begin(), nodes.end(), [&node](const std::shared_ptr<Node>& nodes_item){
-        nodes_item.get() == node;
+    std::vector<std::shared_ptr<Node>>::iterator it = std::find_if(nodes.begin(), nodes.end(), [&node](std::shared_ptr<Node>& val){
+        return node == val.get();
     });
     if (it != nodes.end()) 
     {

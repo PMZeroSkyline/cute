@@ -5,7 +5,7 @@
 
 struct Window
 {
-    ivec2 size;
+    ivec2 window_size;
     ivec2 render_size;
 
     virtual bool is_open() const = 0;

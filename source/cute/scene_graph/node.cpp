@@ -1,7 +1,5 @@
 #include "node.h"
 
-Node::Node(const char* _name) : name(std::string(_name)) {}
-Node::Node(const std::string& _name) : name(_name) {}
 Node::Node(const json& j)
 {
     if (j.contains("matrix"))
@@ -39,8 +37,8 @@ void Node::update()
 }
 bool Node::remove_child(Node* node)
 {
-    auto it = std::find(children.begin(), children.end(), [&node](const std::shared_ptr<Node>& child){
-        return child.get() == node;
+    std::vector<std::shared_ptr<Node>>::iterator it = std::find_if(children.begin(), children.end(), [&node](const std::shared_ptr<Node>& val){
+        return node == val.get();
     });
     if (it != children.end()) 
     {

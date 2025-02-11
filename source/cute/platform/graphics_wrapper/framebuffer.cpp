@@ -8,7 +8,7 @@ Framebuffer::~Framebuffer()
 {
     glDeleteFramebuffers(1, &id);
 }
-void Framebuffer::Bind()
+void Framebuffer::bind()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, id);
 }

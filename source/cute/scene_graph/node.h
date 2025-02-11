@@ -19,9 +19,7 @@ struct Node
     std::vector<std::shared_ptr<Node>> children;
     std::vector<std::shared_ptr<Component>> components;
     Node() = default;
-    explicit Node(const char* _name);
-    explicit Node(const std::string& _name);
-    explicit Node(const json& j);
+    Node(const json& j);
     virtual ~Node() {} // make sure Derived destructor called when using Base pointer delete
     virtual void update();
     template <typename T>

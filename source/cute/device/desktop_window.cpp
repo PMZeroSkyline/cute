@@ -2,11 +2,12 @@
 #include <iostream>
 #include <float.h>
 
-DesktopWindow::DesktopWindow(ivec2 size, const std::string& _name) : name(_name), window_size(size)
+DesktopWindow::DesktopWindow(ivec2 size, const std::string& _name) : name(_name)
 {
     windows.push_back(this);
 
-    render_size = window_size;
+    window_size = size;
+    render_size = size;
     #ifdef MAC_OS
     render_size *= 2;
     #endif

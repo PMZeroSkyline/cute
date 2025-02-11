@@ -14,8 +14,6 @@ struct DesktopWindow : Window
     Cursor cursor;
 
     std::string name;
-    ivec2 window_size;
-    ivec2 render_size;
 
     GLFWwindow* glfw_window;
 

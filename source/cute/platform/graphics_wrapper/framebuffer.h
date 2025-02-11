@@ -11,7 +11,7 @@ struct Framebuffer
     GLuint id = -1;
     Framebuffer();
     ~Framebuffer();
-    void Bind();
+    void bind();
     static void bind_default();
     static GLint get_binding();
     static inline std::unordered_map<std::string, std::shared_ptr<Framebuffer>> sharedMap;

@@ -69,14 +69,17 @@ void Image::alloc()
 {
     if (data)
     {
-        stbi_image_free(data);
-    }
-    if (!size())
-    {
-        data = nullptr;
         return;
     }
-    data = malloc(size());
+    if (size())
+    {
+        data = malloc(size());
+    }
+    else
+    {
+        stbi_image_free(data);
+        data = nullptr;
+    }
 }
 void Image::save(const std::string& _path, bool flip_v)
 {

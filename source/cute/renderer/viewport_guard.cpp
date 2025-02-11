@@ -1,10 +1,10 @@
-#include "viewport_stash.h"
+#include "viewport_guard.h"
 
-ViewportStash::ViewportStash() 
+ViewportGuard::ViewportGuard() 
 {
     glGetIntegerv(GL_VIEWPORT, viewport);
 }
-ViewportStash::~ViewportStash() 
+ViewportGuard::~ViewportGuard() 
 {
     glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
 }
