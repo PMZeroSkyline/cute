@@ -3,19 +3,14 @@
 SphericalHarmonics::SphericalHarmonics(const std::shared_ptr<TextureCube>& tex)
 {
     create_for_cubeMap(tex->mipmaps[0][0]->x, tex->mipmaps[0][0]->y);
-    if (tex->mipmaps[0][0]->type == GL_UNSIGNED_BYTE)
-    {
-        sample_cube_map([&tex](int i, int x, int y){
-            u8vec3 color = *(u8vec3*)(*tex->mipmaps[0][i])(x, y);
-            return vec3(color) / 255.f;
-        });
-    }
-    else if (tex->mipmaps[0][0]->type == GL_FLOAT)
-    {
-        sample_cube_map([&tex](int i, int x, int y){
-            return *(vec3*)(*tex->mipmaps[0][i])(x, y);
-        });
-    }
+    if (tex->mipmaps[0][0]->type != GL_FLOAT)
+	{
+		std::cout << "spherical harmonics init failed" << std::endl;
+		return;
+	}
+    sample_cube_map([&tex](int side, int x, int y){
+		return *(vec3*)(*tex->mipmaps[0][side])(x, y);
+	});
 }
 void SphericalHarmonics::create_for_cubeMap(int resolutionX, int resolutionY)
 {

@@ -1,6 +1,6 @@
 #include "debug_gui.h"
 
-void init_debug_gui()
+void debug_gui_init()
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -11,12 +11,12 @@ void init_debug_gui()
     ImGui_ImplGlfw_InitForOpenGL(glfwGetCurrentContext(), true);
     ImGui_ImplOpenGL3_Init("#version 150");
 }
-void draw_debug_gui()
+void debug_gui_render()
 {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
-void update_debug_gui()
+void debug_gui_update()
 {
     if (glfwGetWindowAttrib(glfwGetCurrentContext(), GLFW_ICONIFIED) != 0)
     {
