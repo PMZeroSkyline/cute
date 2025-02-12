@@ -1,5 +1,5 @@
-#include "debug_gui.h"
-void debug_gui_init()
+#include "editor_gui.h"
+EditorGUI::EditorGUI()
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -18,14 +18,14 @@ void debug_gui_init()
         luminance = luminance * luminance * (3.f - 2.f * luminance);
         style.Colors[i] = ImVec4(luminance, luminance, luminance, style.Colors[i].w);
     }
-    
 }
-void debug_gui_render()
+EditorGUI::~EditorGUI()
 {
-    ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
 }
-void debug_gui_update()
+void EditorGUI::update()
 {
     if (glfwGetWindowAttrib(glfwGetCurrentContext(), GLFW_ICONIFIED) != 0)
     {
@@ -38,9 +38,12 @@ void debug_gui_update()
         ImGui::NewFrame();
     }
 }
-void shutdown_debug_gui()
+void EditorGUI::render()
 {
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+    for (int i = windows.size() - 1; i >= 0; --i) 
+    {
+        windows[i]->draw();
+    }
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
