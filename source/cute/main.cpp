@@ -20,9 +20,8 @@ int main(int argc, char** argv)
     #ifdef MAC_OS
     fs::current_path(fs::current_path().parent_path());
     #endif
-
     App::instance = std::make_shared<App>();
-    App::instance->window = std::make_shared<Window>(ivec2(800, 600), "none");
+    App::instance->window = std::make_shared<Window>(ivec2(800, 600), "cute");
     GraphicsAPI::instance = std::make_shared<OpenglAPI>();
     RenderEngine::instance = std::make_shared<RenderEngine>();
     RenderWorld::instance = std::make_shared<RenderWorld>();
@@ -33,14 +32,13 @@ int main(int argc, char** argv)
     {
         App::instance->update();
         World::instance->scene->update();
-        RenderWorld::instance->update();
         Editor::instance->update();
+        RenderWorld::instance->update();
         glClearColor(.5f, .5f, .5f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT);
         RenderEngine::instance->render();
         Editor::instance->render();
         GraphicsAPI::instance->swap_buffers();
     }
-    
     return 0;
 }
