@@ -9,6 +9,6 @@ struct UniformCameraBlock
     std::shared_ptr<Buffer> buffer;
     static inline std::shared_ptr<UniformCameraBlock> instance = nullptr;
     UniformCameraBlock();
-    void submit(const vec3& cameraPos, float znear, float zfar, const mat4& V, const mat4& P);
+    void submit(const vec3& camera_pos, float znear, float zfar, const mat4& V, const mat4& P);
 };
 #endif

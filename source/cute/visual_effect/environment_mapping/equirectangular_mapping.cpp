@@ -1,10 +1,10 @@
-#include "environment_mapping.h"
+#include "equirectangular_mapping.h"
 #include "platform/graphics_wrapper/framebuffer.h"
 #include "renderer/perspective_camera.h"
 #include "renderer/viewport_guard.h"
 #include "resource/mesh_primitive.h"
 
-std::shared_ptr<TextureCube> render_texture_cube(const std::shared_ptr<Texture2D>& hdr_2d, int size)
+std::shared_ptr<TextureCube> render_equirectangular_to_cube(const std::shared_ptr<Texture2D>& hdr_2d, int size)
 {
     std::shared_ptr<TextureCube> dst_cube = std::make_shared<TextureCube>(GL_FLOAT, size, 3, 1, "", TextureSampler::make_linear_mipmap_clamp_to_edge(), true);
     std::shared_ptr<Material> material = std::make_shared<Material>();

@@ -6,7 +6,7 @@
 #include "render_pass.h"
 struct RenderEngine
 {
-    std::vector<RenderPass> render_passes;
+    std::vector<std::shared_ptr<RenderPass>> passes;
     static inline std::shared_ptr<RenderEngine> instance = nullptr;
     RenderEngine();
     void render();
