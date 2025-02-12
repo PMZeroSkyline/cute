@@ -1,9 +1,9 @@
 #ifndef STD140_LIGHT_BLOCK_H
 #define STD140_LIGHT_BLOCK_H
 
-#include "std140_directional_light.h"
-#include "std140_point_light.h"
-#include "std140_spot_light.h"
+#include "layout_directional_light.h"
+#include "layout_point_light.h"
+#include "layout_spot_light.h"
 #include "core/math/vec4.h"
 
 namespace std140

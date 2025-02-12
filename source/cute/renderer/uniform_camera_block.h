@@ -2,7 +2,7 @@
 #define UNIFORM_CAMERA_BLOCK_H
 
 #include "platform/graphics_wrapper/buffer.h"
-#include "std140_camera_block.h"
+#include "layout_camera_block.h"
 
 struct UniformCameraBlock
 {
