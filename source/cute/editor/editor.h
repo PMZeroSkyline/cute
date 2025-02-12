@@ -9,12 +9,12 @@
 #include "editor_window.h"
 #include <vector>
 
-struct EditorGUI
+struct Editor
 {
     std::vector<std::shared_ptr<EditorWindow>> windows;
-    static inline std::shared_ptr<EditorGUI> instance = nullptr;
-    EditorGUI();
-    virtual ~EditorGUI();
+    static inline std::shared_ptr<Editor> instance = nullptr;
+    Editor();
+    virtual ~Editor();
     void update();
     void render();
     template <typename T, typename... Args>

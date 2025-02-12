@@ -1,5 +1,5 @@
-#include "editor_gui.h"
-EditorGUI::EditorGUI()
+#include "editor.h"
+Editor::Editor()
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -19,13 +19,13 @@ EditorGUI::EditorGUI()
         style.Colors[i] = ImVec4(luminance, luminance, luminance, style.Colors[i].w);
     }
 }
-EditorGUI::~EditorGUI()
+Editor::~Editor()
 {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 }
-void EditorGUI::update()
+void Editor::update()
 {
     if (glfwGetWindowAttrib(glfwGetCurrentContext(), GLFW_ICONIFIED) != 0)
     {
@@ -38,7 +38,7 @@ void EditorGUI::update()
         ImGui::NewFrame();
     }
 }
-void EditorGUI::render()
+void Editor::render()
 {
     for (int i = windows.size() - 1; i >= 0; --i) 
     {

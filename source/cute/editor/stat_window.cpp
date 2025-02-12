@@ -1,8 +1,8 @@
-#include "status_window.h"
-#include "editor_gui.h"
+#include "stat_window.h"
+#include "editor.h"
 #include "device/app.h"
 
-void StatusWindow::draw()
+void StatWindow::draw()
 {
     if (!open)
     {

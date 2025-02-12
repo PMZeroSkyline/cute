@@ -1,6 +1,6 @@
 #include "console_window.h"
-#include "editor_gui.h"
-#include "status_window.h"
+#include "editor.h"
+#include "stat_window.h"
 void ConsoleWindow::draw()
 {
     bool reclaim_focus = false;
@@ -13,9 +13,13 @@ void ConsoleWindow::draw()
     {
         return;
     }
+    const ImGuiViewport* viewport = ImGui::GetMainViewport();
+    ImVec2 window_pos(10.f, viewport->WorkSize.y - 10.f);
+    ImVec2 window_pos_pivot(0.f, 1.f);
+    ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
     ImGui::SetNextWindowSize(ImVec2(400, 150), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowBgAlpha(0.75f);
-    ImGui::Begin("Console", &open, ImGuiWindowFlags_NoTitleBar);
+    ImGui::Begin("Console", &open, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
     const float footer_height_to_reserve = ImGui::GetStyle().ItemSpacing.y + ImGui::GetFrameHeightWithSpacing();
     if (ImGui::BeginChild("ConsoleScroll", ImVec2(0, -footer_height_to_reserve), ImGuiChildFlags_NavFlattened, ImGuiWindowFlags_HorizontalScrollbar))
     {
@@ -27,7 +31,6 @@ void ConsoleWindow::draw()
     ImGui::SetScrollHereY(1.0f);
     ImGui::EndChild();
     ImGui::Separator();
-    ImGuiInputTextFlags input_text_flags = ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_EscapeClearsAll | ImGuiInputTextFlags_CallbackCompletion | ImGuiInputTextFlags_CallbackHistory;
     ImGui::PushItemWidth(-1);
     if (ImGui::InputText("##ConsoleInput", input_buffer, IM_ARRAYSIZE(input_buffer), ImGuiInputTextFlags_EnterReturnsTrue))
     {
@@ -48,9 +51,9 @@ void ConsoleWindow::execute(const std::string cmd)
     lines.push_back(cmd);
     if (cmd == "cls")
         lines.clear();
-    if (cmd == "status")
+    if (cmd == "stat")
     {
-        std::shared_ptr<StatusWindow> window = EditorGUI::instance->get_window<StatusWindow>();
+        std::shared_ptr<StatWindow> window = Editor::instance->get_window<StatWindow>();
         window->open = !window->open;
     }
 }
