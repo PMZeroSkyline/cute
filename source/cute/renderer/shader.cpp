@@ -27,6 +27,7 @@ void Shader::compile()
     std::string code;
     std::vector<std::string> file_names;
     preprocessor(path, code, file_names);
+    std::vector<std::string> debug = split(code, '\n');
     compile(code, &file_names);
 }
 void Shader::preprocessor(const std::string& path, std::string& code, std::vector<std::string>& file_names)

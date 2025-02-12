@@ -1,5 +1,5 @@
-#ifndef UNIFORM_SHADOW_BLOCK_H
-#define UNIFORM_SHADOW_BLOCK_H
+#ifndef STD140_SHADOW_BLOCK_H
+#define STD140_SHADOW_BLOCK_H
 
 #include "core/math/mat4.h"
 

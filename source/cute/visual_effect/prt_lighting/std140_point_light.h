@@ -1,5 +1,5 @@
-#ifndef UNIFORM_POINT_LIGHT_H
-#define UNIFORM_POINT_LIGHT_H
+#ifndef STD140_POINT_LIGHT_H
+#define STD140_POINT_LIGHT_H
 
 #include "core/math/vec3.h"
 

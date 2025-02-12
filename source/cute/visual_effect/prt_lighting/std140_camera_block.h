@@ -1,5 +1,5 @@
-#ifndef UNIFORM_CAMERA_BLOCK_H
-#define UNIFORM_CAMERA_BLOCK_H
+#ifndef STD140_CAMERA_BLOCK_H
+#define STD140_CAMERA_BLOCK_H
 
 #include "core/math/mat4.h"
 

@@ -1,5 +1,5 @@
-#ifndef UNIFFORM_DIRECTIONAL_LIGHT_H
-#define UNIFFORM_DIRECTIONAL_LIGHT_H
+#ifndef STD140_DIRECTIONAL_LIGHT_H
+#define STD140_DIRECTIONAL_LIGHT_H
 
 #include "core/math/vec3.h"
 namespace std140

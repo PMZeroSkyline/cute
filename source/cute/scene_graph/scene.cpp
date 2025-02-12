@@ -54,14 +54,6 @@ bool Scene::remove_node(Node* node)
     }
     return false;
 }
-template<typename Func>
-void Scene::walk_tree(const Func& func)
-{
-    for (const auto& n : nodes) 
-    {
-        n->walk_tree(func);
-    }
-}
 Node* Scene::breadth_first_search(const std::string& target)
 {
     std::queue<Node*> q;

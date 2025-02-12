@@ -53,7 +53,7 @@ struct Node
         return add;
     }
     template <typename T>
-    std::shared_ptr<T> get_component()
+    std::shared_ptr<T> get_component() const
     {
         for (int i = 0; i < components.size(); i++)
         {

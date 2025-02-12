@@ -1,5 +1,5 @@
-#ifndef UNIFORM_SPOT_LIGHT_H
-#define UNIFORM_SPOT_LIGHT_H
+#ifndef STD140_SPOT_LIGHT_H
+#define STD140_SPOT_LIGHT_H
 #include "core/math/vec3.h"
 namespace std140
 {

@@ -1,16 +1,14 @@
 #include "environment_mapping.h"
-#include "precompute_lighting.h"
 #include "platform/graphics_wrapper/framebuffer.h"
 #include "renderer/perspective_camera.h"
 #include "renderer/viewport_guard.h"
 #include "resource/mesh_primitive.h"
-#include "spherical_harmonics.h"
 
 std::shared_ptr<TextureCube> render_texture_cube(const std::shared_ptr<Texture2D>& hdr_2d, int size)
 {
     std::shared_ptr<TextureCube> dst_cube = std::make_shared<TextureCube>(GL_FLOAT, size, 3, 1, "", TextureSampler::make_linear_mipmap_clamp_to_edge(), true);
     std::shared_ptr<Material> material = std::make_shared<Material>();
-    std::shared_ptr<Program> program = Program::get("assets/shader/precompute_lighting/vs_cube.glsl", "assets/shader/precompute_lighting/fs_cube.glsl");
+    std::shared_ptr<Program> program = Program::get("source/cute/visual_effect/shader/environment_mapping/vs_cube.glsl", "source/cute/visual_effect/shader/environment_mapping/fs_cube.glsl");
     material->floats[HashedString("iIntensity")] = 1.f;
     material->textures[HashedString("iEnvironmentTexture")] = hdr_2d;
     std::shared_ptr<MeshPrimitive> primitive = MeshPrimitive::make_cube();
@@ -34,12 +32,4 @@ std::shared_ptr<TextureCube> render_texture_cube(const std::shared_ptr<Texture2D
     dst_cube->bind();
     glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
     return dst_cube;
-}
-std::shared_ptr<ImageBasedLight> make_image_based_light(const std::string& hdr_path, float intensity)
-{
-    std::shared_ptr<Texture2D> hdr_2d = Texture2D::get(hdr_path, true, TextureSampler::make_linear_clamp_to_edge(), false);
-    std::shared_ptr<TextureCube> hdr_cube = render_texture_cube(hdr_2d, hdr_2d->mipmaps[0]->x / 2);
-    std::shared_ptr<TextureCube> diffuse_cube = render_ibl_diffuse(hdr_cube);
-    std::shared_ptr<TextureCube> specular_cube = render_ibl_specular(hdr_cube);
-    return std::make_shared<ImageBasedLight>(specular_cube, SphericalHarmonics(diffuse_cube).coefficients, intensity);
 }
