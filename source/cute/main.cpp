@@ -35,6 +35,8 @@ int main(int argc, char** argv)
         World::instance->scene->update();
         RenderWorld::instance->update();
         Editor::instance->update();
+        glClearColor(.5f, .5f, .5f, 1.f);
+        glClear(GL_COLOR_BUFFER_BIT);
         RenderEngine::instance->render();
         Editor::instance->render();
         GraphicsAPI::instance->swap_buffers();
