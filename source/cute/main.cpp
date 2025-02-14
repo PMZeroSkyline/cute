@@ -5,12 +5,12 @@
 #include "device/window.h"
 #include "resource/world.h"
 #include "renderer/texture_2d.h"
-#include "renderer/engine/render_engine.h"
-#include "renderer/engine/render_world.h"
+#include "renderer/render_engine.h"
+#include "renderer/render_world.h"
+#include "visual_effect/prt_lighting/prt_lighting_pass.h"
 #include "editor/editor.h"
 #include "editor/console_window.h"
 #include "editor/stat_window.h"
-
 
 int main(int argc, char** argv)
 {
@@ -25,6 +25,7 @@ int main(int argc, char** argv)
     GraphicsAPI::instance = std::make_shared<OpenglAPI>();
     RenderEngine::instance = std::make_shared<RenderEngine>();
     RenderWorld::instance = std::make_shared<RenderWorld>();
+    RenderEngine::instance->add_pass<PRTLightingPass>();
     Editor::instance = std::make_shared<Editor>();
     Editor::instance->add_window<ConsoleWindow>();
     Editor::instance->add_window<StatWindow>();

@@ -5,6 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 if (MSVC)
     add_compile_options(/wd4244 /wd4305 /wd4996 /wd4267 /wd4312) # 4244:loss_cast 4305:loss_cast 4996:fopen_s 4267:size_t_cast 4312:void*_cast
 endif()
+if(CMAKE_BUILD_TYPE STREQUAL "Debug") # fix (macos & lldb_debug) miniaudio breakpoint in assembly
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fno-inline")
+endif()
 # _______________include_______________
 include_directories(
     source/cute

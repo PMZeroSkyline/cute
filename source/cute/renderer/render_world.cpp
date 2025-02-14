@@ -4,12 +4,25 @@
 #include "resource/mesh_component.h"
 #include "resource/skin_component.h"
 #include "resource/mesh_gpu_instancing_component.h"
+#include "renderer/perspective_camera.h"
+#include "renderer/orthographic_camera.h"
 #include "renderer/camera_component.h"
+#include "renderer/directional_light.h"
+#include "renderer/point_light.h"
+#include "renderer/spot_light.h"
+#include "renderer/image_based_light.h"
 #include "renderer/light_component.h"
 
 RenderWorld::RenderWorld() {}
 void RenderWorld::update() 
 {
+    render_objects.clear();
+    perspective_camera_components.clear();
+    orthographic_camera_components.clear();
+    directional_light_components.clear();
+    point_light_components.clear();
+    spot_light_components.clear();
+    image_based_light_components.clear();
     std::vector<CameraComponent*> camera_components;
     std::vector<LightComponent*> light_components;
     std::vector<MeshComponent*> mesh_components;
@@ -44,24 +57,24 @@ void RenderWorld::update()
         if (PerspectiveCamera* perspective_camera = dynamic_cast<PerspectiveCamera*>(camera_component->camera.get())) {
             ivec2 size = App::instance->window->render_size;
             perspective_camera->aspect_ratio = (float)size.x / (float)size.y;
-            perspective_cameras.push_back({camera_component->owner, perspective_camera});
+            perspective_camera_components.push_back(camera_component);
         }
         else if (OrthographicCamera* orthographic_camera = dynamic_cast<OrthographicCamera*>(camera_component->camera.get())) {
-            orthographic_cameras.push_back({camera_component->owner, orthographic_camera});
+            orthographic_camera_components.push_back(camera_component);
         }
     }
     for (auto& light_component : light_components) {
         if (DirectionalLight* l = dynamic_cast<DirectionalLight*>(light_component->light.get())) {
-            directional_lights.push_back({light_component->owner, l});
+            directional_light_components.push_back(light_component);
         }
         else if (PointLight* l = dynamic_cast<PointLight*>(light_component->light.get())) {
-            point_lights.push_back({light_component->owner, l});
+            point_light_components.push_back(light_component);
         }
         else if (SpotLight* l = dynamic_cast<SpotLight*>(light_component->light.get())) {
-            spot_lights.push_back({light_component->owner, l});
+            spot_light_components.push_back(light_component);
         }
         else if (ImageBasedLight* l = dynamic_cast<ImageBasedLight*>(light_component->light.get())) {
-            image_based_lights.push_back(l);
+            image_based_light_components.push_back(light_component);
         }
     }
 }

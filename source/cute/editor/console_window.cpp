@@ -50,10 +50,16 @@ void ConsoleWindow::execute(const std::string cmd)
 {
     lines.push_back(cmd);
     if (cmd == "cls")
+    {
         lines.clear();
-    if (cmd == "stat")
+    }
+    else if (cmd == "stat")
     {
         std::shared_ptr<StatWindow> window = Editor::instance->get_window<StatWindow>();
         window->open = !window->open;
+    }
+    else if (cmd == "exit")
+    {
+        glfwSetWindowShouldClose(glfwGetCurrentContext(), 1);
     }
 }
