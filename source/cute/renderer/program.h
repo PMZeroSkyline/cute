@@ -12,9 +12,8 @@ public:
     GLuint id = -1;
     std::shared_ptr<VertexShader> vertex;
     std::shared_ptr<FragmentShader> fragment;
-
     std::unordered_map<HashedString, GLint> locations;
-
+    static inline std::unordered_map<HashedString, std::shared_ptr<Program>> shared = std::unordered_map<HashedString, std::shared_ptr<Program>>();
     Program() = default;
     Program(std::shared_ptr<VertexShader> _vertex, std::shared_ptr<FragmentShader> _fragment);
     virtual ~Program();

@@ -10,12 +10,9 @@
 #include "core/string/hashed_string.h"
 #include "renderer/texture.h"
 #include "renderer/program.h"
-
-
 #define OPAQUE_ALPHA_BIT   0b00000000000000000000000000000001
 #define MASK_ALPHA_BIT     0b00000000000000000000000000000010
 #define BLEND_ALPHA_BIT    0b00000000000000000000000000000100
-
 struct Material
 {
     std::string name;
@@ -43,8 +40,8 @@ struct Material
     void submit_state();
     void submit_uniform(Program* program);
     void submit(Program* program);
+    Program* require(const HashedString& defines);
     static std::shared_ptr<Material> make_default();
-
 };
 
 #endif

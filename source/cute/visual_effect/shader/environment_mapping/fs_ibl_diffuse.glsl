@@ -3,14 +3,9 @@ out vec4 FragColor;
 in V2F {
     vec3 worldPos;
 } i;
-// https://learnopengl.com/PBR/Lighting
-const float PI = 3.14159265359;
 uniform samplerCube iEnvironmentTexture;
-// https://www.khronos.org/opengl/wiki/Cubemap_Texture
-vec3 cubemap_mapping(vec3 v)
-{
-    return vec3(v.x, v.z, v.y);
-}
+#include "../lib/pi.glsl"
+#include "../lib/cubemap_mapping.glsl"
 void main()
 {
     vec3 irradiance = vec3(0.0);   

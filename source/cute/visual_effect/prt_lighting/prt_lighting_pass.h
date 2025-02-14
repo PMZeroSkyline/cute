@@ -13,5 +13,6 @@ struct PRTLightingPass : RenderPass
     ivec2 render_size;
     void render() override;
     void on_resize();
+    void draw_render_object(const RenderObject& render_object);
 };
 #endif

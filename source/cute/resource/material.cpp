@@ -1,6 +1,7 @@
 #include "material.h"
 #include "core/string/string.h"
 #include "renderer/texture_2d.h"
+#include "core/object_handle/get_or_make.h"
 
 Material::Material(const std::shared_ptr<Program>& _program) 
 {
@@ -168,6 +169,18 @@ void Material::submit(Program* program)
     submit_state();
     program->use();
     submit_uniform(program);
+}
+Program* Material::require(const HashedString& defines)
+{
+    return get_or_make(programs, defines, [&defines, this](){
+        Program* program = programs[HashedString()].get();
+        std::set<std::string> vs_defines = program->vertex->defines;
+        std::set<std::string> fs_defines = program->fragment->defines;
+        const std::vector<std::string> require_defines = split(*defines.str, ',');
+        vs_defines.insert(require_defines.begin(), require_defines.end());
+        fs_defines.insert(require_defines.begin(), require_defines.end());
+        return Program::get(program->vertex->path+(vs_defines.size()?",":"")+merge(vs_defines,','),program->fragment->path+(fs_defines.size()?",":"")+merge(fs_defines,','));
+    }).get();
 }
 std::shared_ptr<Material> Material::make_default()
 {
